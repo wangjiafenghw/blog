@@ -39,3 +39,6 @@ jspm_packages
 yarn.lock
 dev
 prd
+
+#upload-server
+.vscode-upload.json
