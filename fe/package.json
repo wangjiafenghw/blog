@@ -10,9 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^3.10.4",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "reqwest": "^2.0.5",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "ykit-config-antd": "^2.3.0"
   }
 }
