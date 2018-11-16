@@ -1,0 +1,18 @@
+{
+  "name": "fe",
+  "version": "1.0.0",
+  "description": "ykit starter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^3.10.4",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "reqwest": "^2.0.5",
+    "ykit-config-antd": "^2.3.0"
+  }
+}
