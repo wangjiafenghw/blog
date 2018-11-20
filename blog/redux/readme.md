@@ -19,14 +19,11 @@
 <script src="https://cdn.bootcss.com/redux/4.0.1/redux.min.js"></script>
 ```
 这是一个累加器，这个案例的基本实现思想就是将数字放入一个容器，叫**state**，触发累加操作时不是粗暴地直接改变state的值，而是只能通过**触发action**的方式改变state，具体的步骤就是：
-```graph
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->E;
-    E-->F;
-    D-->F;
-    F-->G;
+```mermaid
+graph LR;
+    定义reducer-->创建store;
+    创建store-->订阅render渲染;
+    订阅render渲染-->初始渲染;
+    初始渲染-->监听调用dispatch
 ```
 
