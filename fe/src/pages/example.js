@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { } from 'antd'
 // import {connect} from 'react-redux'
 // import {} from '@actions/xxx'
-
 // @connect((storeState)=>({}))
 
 export default class app extends Component {
