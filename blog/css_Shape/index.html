@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .wrap{
+            box-sizing: border-box;
+            border: 2px solid #ff6700;
+            width: 100%;
+            height: 300px;
+            overflow: auto;
+        }
+        .shape{
+            margin-top: 60px;
+            width: 140px;
+            height: 100px;
+            float: left;
+            shape-outside: ellipse(70px 50px);
+        }
+        .tu{
+            position: absolute;
+            top: 40px;
+            width: 140px;
+            height: 100px;
+            background: url("./nohavehotdog.jpg") no-repeat;
+            background-position: 50% 0;
+            background-size: 100px 100px;
+        }
+        ul{
+            margin: 100px 0;
+        }
+        li{
+            display: block;
+            width: auto;
+            
+        }
+        li span{
+            margin: 10px 0;
+            display: inline-block;
+            width: 100px;
+            line-height: 40px;
+            background: url("./hotdog.jpg") no-repeat;
+            background-position: 50%;
+            background-size: auto 40px;
+            text-align: center;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="wrap" id="wrap">
+        <div class="shape" id="shape"></div>
+        <div class="tu"></div>
+        <ul>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+            <li><span>safs</span></li>
+        </ul>
+    </div>
+    
+</body>
+<script>
+        document.getElementById("wrap").addEventListener('scroll', function(e){
+            var scrollTop = e.target.scrollTop*2 + 60;
+            document.getElementById('shape').style.marginTop = scrollTop+'px';
+        })
+    </script>
+</html>

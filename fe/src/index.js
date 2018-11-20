@@ -1,22 +1,10 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import Routers from './config/router.config'
 
-class App extends Component{
-    constructor(props){
-        super()
-
-    }
-    render(){
-        return (
-            <div>
-                Hello Blog
-            </div>
-        )
-    }
-}
 
 ReactDOM.render(
-    <App />,
+    <Routers />,
     document.getElementById('app')
 )
 

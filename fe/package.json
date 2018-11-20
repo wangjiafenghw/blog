@@ -12,6 +12,10 @@
     "antd": "^3.10.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "ykit-config-antd": "^2.3.0"
   }
 }
