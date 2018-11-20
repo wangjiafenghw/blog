@@ -21,19 +21,21 @@
             overflow: auto;
         }
         .shape{
+            float: left;
             margin-top: 60px;
             width: 140px;
             height: 100px;
-            float: left;
             shape-outside: ellipse(70px 50px);
+            transition: margin-top .05s;
         }
         .tu{
             position: absolute;
             top: 40px;
             width: 140px;
             height: 100px;
+            border-radius: 50%;
             background: url("./nohavehotdog.jpg") no-repeat;
-            background-position: 50% 0;
+            background-position: 60px 0;
             background-size: 100px 100px;
         }
         ul{
@@ -59,39 +61,41 @@
 </head>
 <body>
     <div class="wrap" id="wrap">
-        <div class="shape" id="shape"></div>
-        <div class="tu"></div>
+        <i class="shape" id="shape"></i>
+        <i class="tu"></i>
         <ul>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
-            <li><span>safs</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
+            <li><span>hotDog</span></li>
         </ul>
     </div>
     
 </body>
 <script>
-        document.getElementById("wrap").addEventListener('scroll', function(e){
-            var scrollTop = e.target.scrollTop*2 + 60;
-            document.getElementById('shape').style.marginTop = scrollTop+'px';
+        var eleWrap = document.getElementById('wrap');
+        var eleShape = document.getElementById('shape');
+        eleWrap.addEventListener('scroll', function(e){
+            var scrollTop = eleWrap.scrollTop*2 + 60;
+            eleShape.style.marginTop = scrollTop+'px';
         })
     </script>
 </html>
