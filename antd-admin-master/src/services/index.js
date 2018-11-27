@@ -3,6 +3,10 @@ import { apiPrefix } from 'utils/config'
 
 import api from './api'
 
+/**
+ * todo 解析api字符串
+ * @param {string} params api字符串 eg:"POST /user/login"
+ */
 const gen = params => {
   let url = apiPrefix + params
   let method = 'GET'
