@@ -7,27 +7,62 @@ var uuid = require('uuid')
 // var userHelper = require('../dbhelper/userHelper')
 import userHelper from '../dbhelper/userHelper'
 
+exports.signin = async (ctx, next) => {
+  let username = xss(ctx.request.body.username.trim())
+  let password = xss(ctx.request.body.password.trim())
+  let user = await User.findOne({
+    username
+  }).exec()
+  if(!user){
+    ctx.body = {
+      success: false,
+      msg: '用户不存在',
+      code: 1
+    }
+  }else if(user.password === password){
+    let accessToken = uuid.v4()
+    console.log(accessToken)
+    await User.update({ username: username }, {
+      $set: { accessToken: accessToken }
+    }, (err) => {
+      if(err) throw err
+    })
+    ctx.body = {
+      success: true,
+      msg: "登陆成功",
+      code: 0
+    }
+  }else{
+    ctx.body = {
+      success: false,
+      msg: "密码错误",
+      code: 2
+    }
+  }
+  return next;
+}
+
 /**
  * 注册新用户
  * @param {Function} next          [description]
  * @yield {[type]}   [description]
  */
 exports.signup = async (ctx, next) => {
-	var phoneNumber = xss(ctx.request.body.phoneNumber.trim())
+  var username = xss(ctx.request.body.username.trim())
+  let password = xss(ctx.request.body.password.trim())
 	var user = await User.findOne({
-	  phoneNumber: phoneNumber
+	  username
 	}).exec()
-  console.log(user)
 	
 	var verifyCode = Math.floor(Math.random()*10000+1)
-  console.log(phoneNumber)
 	if (!user) {
 	  var accessToken = uuid.v4()
 
 	  user = new User({
+      username,
+      password,
 	    nickname: '测试用户',
 	    avatar: 'http://upload-images.jianshu.io/upload_images/5307186-eda1b28e54a4d48e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240',
-	    phoneNumber: xss(phoneNumber),
 	    verifyCode: verifyCode,
 	    accessToken: accessToken
 	  })

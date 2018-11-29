@@ -21,6 +21,11 @@ var UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  username: {
+    type: String,
+    unique: true
+  },
+  password: String,
   accessToken: String,
   nickname: String,
   gender: String,
