@@ -21,7 +21,6 @@ exports.signin = async (ctx, next) => {
     }
   }else if(user.password === password){
     let accessToken = uuid.v4()
-    console.log(accessToken)
     await User.update({ username: username }, {
       $set: { accessToken: accessToken }
     }, (err) => {
@@ -73,13 +72,17 @@ exports.signup = async (ctx, next) => {
 
 	try {
     user = await user.save()
+    ctx.session = ctx.session || {}
+    ctx.session.accessToken = accessToken
     ctx.body = {
-      success: true
+      success: true,
+      msg: "注册成功"
     }
   }
   catch (e) {
     ctx.body = {
-      success: false
+      success: false,
+      msg: "鬼知道杀啥错误，可能服务器崩了吧…………"
     }
 
     return next
@@ -121,45 +124,3 @@ exports.update = async (ctx, next) => {
 }
 
 
-
-/**
- * 数据库接口测试
- * @param  {[type]}   ctx  [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
- */
-exports.users = async (ctx, next) => {
-  var data = await userHelper.findAllUsers()
-  // var obj = await userHelper.findByPhoneNumber({phoneNumber : '13525584568'})
-  // console.log('obj=====================================>'+obj)
-  
-  ctx.body = {
-    success: true,
-    data
-  }
-}
-exports.addUser = async (ctx, next) => {
-  var user = new User({
-      nickname: '测试用户',
-      avatar: 'http://ip.example.com/u/xxx.png',
-      phoneNumber: xss('13800138000'),
-      verifyCode: '5896',
-      accessToken: uuid.v4()
-    })
-  var user2 =  await userHelper.addUser(user)
-  if(user2){
-    ctx.body = {
-      success: true,
-      data : user2
-    }
-  }
-}
-exports.deleteUser = async (ctx, next) => {
-  const phoneNumber = xss(ctx.request.body.phoneNumber.trim())
-  console.log(phoneNumber)
-  var data  = await userHelper.deleteUser({phoneNumber})
-  ctx.body = {
-    success: true,
-    data
-  }
-}
