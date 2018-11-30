@@ -30,6 +30,7 @@ exports.signin = async (ctx, next) => {
     }, (err) => {
       if(err) throw err
     })
+    ctx.cookies.set("accessToken", accessToken)
     ctx.body = {
       success: true,
       msg: "登陆成功",
@@ -94,8 +95,22 @@ exports.signup = async (ctx, next) => {
 
 }
 
-
-
+/**
+ * 获取用户数据
+ */
+exports.getUserInfo = async (ctx, next) => {
+  let username = ctx.query.username;
+  let user = await User.findOne({
+    username
+  }).exec()
+  user = user || ctx.session.user;
+  ctx.body = {
+    success: true,
+    msg: "返回用户数据成功",
+    code: 0,
+    data: user
+  }
+}
 
 /**
  * 更新用户信息操作

@@ -27,6 +27,9 @@ exports.hasToken = async (ctx, next) => {
   if (!accessToken) {
     accessToken = ctx.request.body.accessToken
   }
+  if(!accessToken){
+    accessToken = ctx.cookies.get("accessToken")
+  }
 
   if (!accessToken) {
     ctx.body = {
