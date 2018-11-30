@@ -7,6 +7,10 @@ var uuid = require('uuid')
 // var userHelper = require('../dbhelper/userHelper')
 import userHelper from '../dbhelper/userHelper'
 
+
+/**
+ * 登陆
+ */
 exports.signin = async (ctx, next) => {
   let username = xss(ctx.request.body.username.trim())
   let password = xss(ctx.request.body.password.trim())
@@ -89,6 +93,9 @@ exports.signup = async (ctx, next) => {
   }
 
 }
+
+
+
 
 /**
  * 更新用户信息操作

@@ -49,9 +49,11 @@ const Koa = require('koa')
 const logger = require('koa-logger')
 const session = require('koa-session')
 const bodyParser = require('koa-bodyparser')
+var cors = require('koa2-cors');
 const app = new Koa()
 
-app.keys = ['zhangivon']
+app.keys = ['wjfblog']
+app.use(cors());
 app.use(logger())
 app.use(session(app))
 app.use(bodyParser())
