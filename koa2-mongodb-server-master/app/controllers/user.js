@@ -4,6 +4,8 @@ var xss = require('xss')
 var mongoose =  require('mongoose')
 var User = mongoose.model('User')
 var uuid = require('uuid')
+const qs = require('qs')
+const _ = require('lodash')
 // var userHelper = require('../dbhelper/userHelper')
 import userHelper from '../dbhelper/userHelper'
 
@@ -11,40 +13,67 @@ import userHelper from '../dbhelper/userHelper'
 /**
  * 登陆
  */
-exports.signin = async (ctx, next) => {
+exports.login = async (ctx, next) => {
   let username = xss(ctx.request.body.username.trim())
   let password = xss(ctx.request.body.password.trim())
-  let user = await User.findOne({
+  const user = await User.findOne({
     username
   }).exec()
-  if(!user){
-    ctx.body = {
-      success: false,
-      msg: '用户不存在',
-      code: 1
-    }
-  }else if(user.password === password){
-    let accessToken = uuid.v4()
-    await User.update({ username: username }, {
-      $set: { accessToken: accessToken }
-    }, (err) => {
-      if(err) throw err
-    })
-    ctx.cookies.set("accessToken", accessToken)
-    ctx.body = {
-      success: true,
-      msg: "登陆成功",
-      code: 0
-    }
-  }else{
-    ctx.body = {
-      success: false,
-      msg: "密码错误",
-      code: 2
-    }
+  if (user && user.password === password) {
+    const now = new Date()
+    now.setDate(now.getDate() + 1)
+    ctx.cookies.set(
+      'token',
+      JSON.stringify({ id: user.id, deadline: now.getTime() }),
+      {
+        maxAge: 900000,
+        httpOnly: true,
+      }
+    )
+    ctx.body = { success: true, message: 'Ok' }
+  } else {
+    ctx.throw(400)
   }
   return next;
 }
+
+/**
+ * 退出登陆
+ */
+exports.logout = async (ctx, next) => {
+  ctx.cookies.set('token', null)
+  ctx.throw(200)
+}
+
+/**
+ * 获取用户信息
+ */
+exports.user = async (ctx, next) => {
+  const cookies = {}
+  cookies.token = ctx.cookies.get('token')
+  const response = {}
+  let user = {}
+  if (!cookies.token) {
+    ctx.body = { message: 'Not Login' }
+    return
+  }
+  const token = JSON.parse(cookies.token)
+  if (token) {
+    response.success = token.deadline > new Date().getTime()
+  }
+  if (response.success) {
+    const userItem = await User.findOne({
+      _id: token.id
+    }).exec()
+    if (userItem) {
+      user = _.omit(userItem, 'password')  //? 为什么omit会无效， 但使用_.pick却有效 
+    }
+    response.user = user
+    ctx.body = response
+  }
+}
+
+
 
 /**
  * 注册新用户

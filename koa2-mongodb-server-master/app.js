@@ -44,7 +44,15 @@ var walk = function(modelPath) {
 }
 walk(models_path)
 
-require('babel-register')
+require('babel-register')({
+  "presets": [
+      "es2015",
+      "stage-0"
+  ]
+})
+
+require('babel-polyfill')
+
 const Koa = require('koa')
 const logger = require('koa-logger')
 const session = require('koa-session')
