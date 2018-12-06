@@ -20,6 +20,7 @@
     "cloudinary": "^1.8.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
+    "koa-cors": "^0.0.16",
     "koa-logger": "^2.0.1",
     "koa-router": "^7.1.1",
     "koa-session": "^5.0.0",

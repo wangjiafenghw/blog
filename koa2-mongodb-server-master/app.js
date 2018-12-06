@@ -49,15 +49,22 @@ const Koa = require('koa')
 const logger = require('koa-logger')
 const session = require('koa-session')
 const bodyParser = require('koa-bodyparser')
-var cors = require('koa2-cors');
+var cors = require('koa-cors');
 const app = new Koa()
 
 app.keys = ['wjfblog']
-app.use(cors());
+
 app.use(logger())
 app.use(session(app))
 app.use(bodyParser())
-
+app.use(cors({
+  origin: 'http://localhost:7000',
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 
 /**
  * 使用路由转发请求
