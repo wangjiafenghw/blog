@@ -87,6 +87,22 @@ const database = [{
         icon: 'area-chart',
         route: '/chart/Recharts',
     },
+    {
+        id: '8',
+        breadcrumbParentId: '1',
+        name: 'Cloud',
+        zhName: '云盘',
+        icon: 'cloud',
+    },
+    {
+        id: '81',
+        breadcrumbParentId: '8',
+        menuParentId: '8',
+        name: 'Upload',
+        zhName: '上传',
+        icon: 'upload',
+        route: '/Cloud/Upload',
+    },
 ]
 
 exports.routes = async (ctx, next) => {
