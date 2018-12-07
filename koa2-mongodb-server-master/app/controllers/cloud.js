@@ -10,7 +10,7 @@ const path = require('path')
 exports.upload = async (ctx, next) => {
     // 上传文件请求处理
     let result = { success: false }
-    let serverFilePath = path.join( __dirname, 'upload-files' )
+    let serverFilePath = path.join( process.cwd(), 'cloud' )
 
     // 上传文件事件
     result = await uploadFile( ctx, {
