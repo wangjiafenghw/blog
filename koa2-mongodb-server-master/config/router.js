@@ -21,7 +21,7 @@ module.exports = function(){
   router.get('/user', User.user)
 
   //Cloud
-  router.post('/cloud/upload', Cloud.upload)
+  router.post('/cloud/upload', App.hasToken, Cloud.upload)
 
   
   router.post('/u/signup', App.hasBody, User.signup)

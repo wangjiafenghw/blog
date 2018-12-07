@@ -14,7 +14,7 @@ var Schema = mongoose.Schema;
 var CloudSchema = new Schema({
     url: String,
     owner: String,
-    public: boolean,
+    public: Boolean,
     meta: {
         createAt: {
             type: Date,
@@ -28,7 +28,7 @@ var CloudSchema = new Schema({
 })
 
 // Defines a pre hook for the document.
-UserSchema.pre('save', function (next) {
+CloudSchema.pre('save', function (next) {
     if (this.isNew) {
         this.meta.createAt = this.meta.updateAt = Date.now()
     } else {
