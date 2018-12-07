@@ -4,7 +4,8 @@
   "description": "利用node+koa+mongoose搭建的后台服务，提供restful接口api",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
   },
   "keywords": [
     "koa",
@@ -21,8 +22,10 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "bluebird": "^3.5.0",
+    "busboy": "^0.2.14",
     "cloudinary": "^1.8.0",
     "koa": "^2.2.0",
+    "koa-body": "^4.0.4",
     "koa-bodyparser": "^4.2.0",
     "koa-cors": "^0.0.16",
     "koa-logger": "^2.0.1",

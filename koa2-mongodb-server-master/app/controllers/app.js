@@ -8,6 +8,7 @@ var User = mongoose.model('User')
 
 exports.hasBody = async (ctx, next) => {
   var body = ctx.request.body || {}
+  console.log(body)
   if (Object.keys(body).length === 0) {
     ctx.body = {
       success: false,

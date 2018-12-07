@@ -5,6 +5,7 @@ const User   = require('../app/controllers/user')
 const Dashboard = require('../app/controllers/dashboard')
 const App    = require('../app/controllers/app')
 const Routes = require('../app/controllers/routes')
+const Cloud = require('../app/controllers/cloud')
 
 module.exports = function(){
 	var router = new Router({
@@ -18,6 +19,9 @@ module.exports = function(){
   router.post('/user/login', App.hasBody, User.login)
   router.get('/user/logout', User.logout)
   router.get('/user', User.user)
+
+  //Cloud
+  router.post('/cloud/upload', Cloud.upload)
 
   
   router.post('/u/signup', App.hasBody, User.signup)

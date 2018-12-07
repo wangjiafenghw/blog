@@ -44,14 +44,7 @@ var walk = function(modelPath) {
 }
 walk(models_path)
 
-require('babel-register')({
-  "presets": [
-      "es2015",
-      "stage-0"
-  ]
-})
 
-require('babel-polyfill')
 
 const Koa = require('koa')
 const logger = require('koa-logger')
@@ -73,6 +66,7 @@ app.use(cors({
   allowMethods: ['GET', 'POST', 'DELETE'],
   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
+
 
 /**
  * 使用路由转发请求
