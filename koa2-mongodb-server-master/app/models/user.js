@@ -26,7 +26,7 @@ var UserSchema = new Schema({
     unique: true
   },
   password: String,
-  accessToken: String,
+  token: String,
   nickname: String,
   gender: String,
   breed: String,

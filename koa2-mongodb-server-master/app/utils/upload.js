@@ -66,7 +66,7 @@ function uploadFile( ctx, options) {
       file.on('end', function() {
         result.success = true
         result.message = '文件上传成功'
-
+        result.saveTo = {fileType, fileName, url: `/cloud/${fileType}/${fileName}`}
         console.log('文件上传成功！')
         resolve(result)
       })

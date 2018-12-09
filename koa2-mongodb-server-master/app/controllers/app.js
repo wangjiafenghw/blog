@@ -23,15 +23,14 @@ exports.hasBody = async (ctx, next) => {
 
 // 检验token
 exports.hasToken = async (ctx, next) => {
-  var accessToken = ctx.query.accessToken
+  var accessToken = ctx.query.token
 
   if (!accessToken) {
-    accessToken = ctx.request.body.accessToken
+    accessToken = ctx.request.body.token
   }
   if(!accessToken){
-    accessToken = ctx.cookies.get("accessToken")
+    accessToken = ctx.cookies.get("token")
   }
-
   if (!accessToken) {
     ctx.body = {
       success: false,
@@ -42,7 +41,7 @@ exports.hasToken = async (ctx, next) => {
   }
 
   var user = await User.findOne({
-    accessToken: accessToken
+    token: accessToken
   })
   .exec()
 

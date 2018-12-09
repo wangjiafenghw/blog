@@ -50,6 +50,9 @@ const Koa = require('koa')
 const logger = require('koa-logger')
 const session = require('koa-session')
 const bodyParser = require('koa-bodyparser')
+const koaStatic = require('koa-static')
+const mount = require('koa-mount');
+
 var cors = require('koa-cors');
 const app = new Koa()
 
@@ -67,6 +70,16 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
 
+// 静态资源目录对于相对入口文件index.js的路径
+const staticPath = './cloud/common'
+const staticApp = new Koa();
+
+staticApp.use(koaStatic(
+  path.join( __dirname,  staticPath)
+))
+app.use(mount('/cloud/common', staticApp))
+
+
 
 /**
  * 使用路由转发请求
@@ -78,7 +91,7 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-
+  
 
 app.listen(1234)
 console.log('app started at port 1234...');

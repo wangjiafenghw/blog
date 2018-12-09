@@ -22,14 +22,17 @@ exports.login = async (ctx, next) => {
   if (user && user.password === password) {
     const now = new Date()
     now.setDate(now.getDate() + 1)
+    const token = JSON.stringify({ id: user.id, deadline: now.getTime() })
     ctx.cookies.set(
       'token',
-      JSON.stringify({ id: user.id, deadline: now.getTime() }),
+      token,
       {
         maxAge: 900000,
         httpOnly: true,
       }
     )
+    user.token = token;
+    await user.save();
     ctx.body = { success: true, message: 'Ok' }
   } else {
     ctx.throw(400)
