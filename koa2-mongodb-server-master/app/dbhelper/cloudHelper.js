@@ -32,7 +32,8 @@ exports.removeUploadFile = async (url) => {
 
 exports.getFilesList = async (_id) => {
     let ret = [];
-    let query = Cloud.find({_id})
+    console.log(_id)
+    let query = Cloud.find({"owner_id": _id})
     await query.exec((err, res) => {
         if(err){
             throw err;

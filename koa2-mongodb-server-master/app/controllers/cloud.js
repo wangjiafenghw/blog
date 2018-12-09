@@ -19,12 +19,11 @@ exports.upload = async (ctx, next) => {
       fileType: 'common', // common or album
       path: serverFilePath
     })
-    
     //存入数据库
     let data = { 
       url: result.saveTo.url, 
       owner: "admin",
-      owner_id: ctx.cookies.get("token").id,
+      owner_id: JSON.parse(ctx.cookies.get("token")).id,
       permission: "common",
       suffix: "png"
     }
@@ -55,8 +54,8 @@ exports.removeUploadFile = async (ctx, next) => {
 
 exports.getFilesList = async (ctx, next) => {
   let result = {success: false, data: null}
-  let _id = ctx.query.token.id;
-  if(_id){
+  let _id = ctx.query.id;
+  if(!_id){
     _id = ctx.cookies.get("token").id;
   }
   if(!_id){
@@ -69,6 +68,7 @@ exports.getFilesList = async (ctx, next) => {
   
   try {
     let res = await cloudHelper.getFilesList(_id)
+    result.success = true;
     result.data = res;
   } catch (error) {
     result.msg = "错误"
