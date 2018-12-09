@@ -14,7 +14,9 @@ var Schema = mongoose.Schema;
 var CloudSchema = new Schema({
     url: String,
     owner: String,
-    public: Boolean,
+    permission: String,
+    suffix: String,
+    owner_id: String,
     meta: {
         createAt: {
             type: Date,

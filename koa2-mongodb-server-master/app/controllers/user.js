@@ -27,7 +27,7 @@ exports.login = async (ctx, next) => {
       'token',
       token,
       {
-        maxAge: 900000,
+        maxAge: 90000000,
         httpOnly: true,
       }
     )

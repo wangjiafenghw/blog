@@ -103,6 +103,16 @@ const database = [{
         icon: 'upload',
         route: '/Cloud/Upload',
     },
+    {
+        id: '82',
+        breadcrumbParentId: '8',
+        menuParentId: '8',
+        name: 'List',
+        zhName: '列表',
+        icon: 'bars',
+        route: '/Cloud/List',
+    },
+    
 ]
 
 exports.routes = async (ctx, next) => {
