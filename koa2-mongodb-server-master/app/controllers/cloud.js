@@ -67,10 +67,28 @@ exports.removeUploadFile = async (ctx, next) => {
 /**
  * @param {_id} String
  */
-exports.removeUploadFileById = async (ctx, next) => {
+exports.removeUploadFileById1 = async (ctx, next) => {
   let res = { success: false }
   //查询文件的路径 ByID
   const id = ctx.params.id;
+  const data = await cloudHelper.findFileById(id);
+  try {
+    await cloudHelper.removeUploadFile(data.url)
+    res.success = true;
+  } catch(error) {
+    throw error
+  }
+  ctx.body = res;
+
+}
+//删除已上传文件 ByID
+/**
+ * @param {_id} String
+ */
+exports.removeUploadFileById2 = async (ctx, next) => {
+  let res = { success: false }
+  //查询文件的路径 ByID
+  const id = ctx.query.id;
   const data = await cloudHelper.findFileById(id);
   try {
     await cloudHelper.removeUploadFile(data.url)
