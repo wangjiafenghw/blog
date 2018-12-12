@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
-const { uploadFile } = require('../utils/upload')
+
 const path = require('path')
-const fs = require("fs-extra")
 const cloudHelper = require("../dbhelper/cloudHelper")
+const send = require('koa-send');
+const cloudFsHelper = require("../fshelper/cloudHelper")
 
 
 /**
@@ -10,35 +10,45 @@ const cloudHelper = require("../dbhelper/cloudHelper")
  */
 
 exports.upload = async (ctx, next) => {
-    // 上传文件请求处理
-    let result = { success: false }
-    let serverFilePath = path.join( process.cwd(), 'cloud' )
+  // 上传文件请求处理
+  let result = { success: false }
+  let serverFilePath = path.join( process.cwd(), 'cloud' )
 
-    // 上传文件事件
-    result = await uploadFile( ctx, {
-      fileType: 'common', // common or album
-      path: serverFilePath
-    })
-    //存入数据库
-    let data = { 
-      url: result.saveTo.url, 
-      owner: "admin",
-      owner_id: JSON.parse(ctx.cookies.get("token")).id,
-      permission: "common",
-      suffix: "png"
-    }
-    let res = await cloudHelper.upload(data)
-    result.db = res;
+  // 上传文件事件
+  result = await cloudFsHelper.uploadFile( ctx, {
+    fileType: 'common', // common or album
+    path: serverFilePath
+  })
+  //存入数据库
+  let data = { 
+    url: result.saveTo.url, 
+    owner: "admin",
+    owner_id: JSON.parse(ctx.cookies.get("token")).id,
+    permission: "common",
+    suffix: "png"
+  }
+  let res = await cloudHelper.upload(data)
+  result.db = res;
 
-    ctx.body = result
+  ctx.body = result
 }
 
+/**
+ * 下载
+ */
+exports.download = async (ctx, next) => {
+  const id = ctx.params.id;
+  const data = await cloudHelper.findFileById(id);
+  ctx.attachment(data.url);
+  await send(ctx, data.url);
+}
+
+//删除已上传文件
 exports.removeUploadFile = async (ctx, next) => {
     let result = { success: false, code: 1 }
     let filePath = ctx.query.filePath;
     console.log(filePath)
     try {
-      await fs.remove("."+filePath)
       let res = await cloudHelper.removeUploadFile(filePath)
       result.db = res;
       result.success = true;
@@ -51,6 +61,27 @@ exports.removeUploadFile = async (ctx, next) => {
     ctx.body = result;
 
 }
+
+//删除已上传文件 ByID
+/**
+ * @param {_id} String
+ */
+exports.removeUploadFileById = async (ctx, next) => {
+  let res = { success: false }
+  //查询文件的路径 ByID
+  const id = ctx.params.id;
+  const data = await cloudHelper.findFileById(id);
+  try {
+    await cloudHelper.removeUploadFile(data.url)
+    res.success = true;
+  } catch(error) {
+    throw error
+  }
+  ctx.body = res;
+
+}
+
+
 
 exports.getFilesList = async (ctx, next) => {
   let result = {success: false, data: null}
