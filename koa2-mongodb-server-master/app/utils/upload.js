@@ -63,6 +63,8 @@ function uploadFile( ctx, options) {
 
       // 文件写入事件结束
       file.on('end', function() {
+        result.suffixName = getSuffixName(filename)
+        result.fileName = filename
         result.success = true
         result.message = '文件上传成功'
         result.saveTo = {fileType, fileName, url: `/cloud/${fileType}/${fileName}`}

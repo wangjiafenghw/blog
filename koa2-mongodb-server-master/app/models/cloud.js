@@ -14,6 +14,7 @@ var Schema = mongoose.Schema;
 var CloudSchema = new Schema({
     url: String,
     owner: String,
+    fileName: String,
     permission: String,
     suffix: String,
     owner_id: String,

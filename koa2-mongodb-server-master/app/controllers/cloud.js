@@ -19,13 +19,15 @@ exports.upload = async (ctx, next) => {
     fileType: 'common', // common or album
     path: serverFilePath
   })
+  console.log(result)
   //存入数据库
   let data = { 
     url: result.saveTo.url, 
+    fileName: result.fileName,
     owner: "admin",
     owner_id: JSON.parse(ctx.cookies.get("token")).id,
     permission: "common",
-    suffix: "png"
+    suffix: result.suffixName
   }
   let res = await cloudHelper.upload(data)
   result.db = res;
@@ -47,7 +49,6 @@ exports.download = async (ctx, next) => {
 exports.removeUploadFile = async (ctx, next) => {
     let result = { success: false, code: 1 }
     let filePath = ctx.query.filePath;
-    console.log(filePath)
     try {
       let res = await cloudHelper.removeUploadFile(filePath)
       result.db = res;
