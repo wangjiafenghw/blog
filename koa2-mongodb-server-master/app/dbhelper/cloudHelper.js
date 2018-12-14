@@ -48,9 +48,17 @@ exports.removeUploadFile = async (url) => {
 
 //通过用户查询云文件列表
 
-exports.getFilesList = async (_id) => {
+exports.getFilesList = async (param) => {
     let ret = [];
-    let query = Cloud.find({"owner_id": _id})
+    let query = Cloud.find({})
+    if(param.permission && param.permission.length!==0){
+        query.where("permission").in(param.permission)
+    }
+    query.where("owner_id").in(param.owner_id)
+    await query   //////////////////////
+    query.skip((param.current-1)*param.pageSize)
+    query.limit(parseInt(param.pageSize));
+    console.log(param)
     await query.exec((err, res) => {
         if(err){
             throw err;
@@ -58,5 +66,6 @@ exports.getFilesList = async (_id) => {
             ret = res;
         }
     })
+    
     return ret;
 }

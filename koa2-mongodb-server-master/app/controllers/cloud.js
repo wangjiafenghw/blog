@@ -3,6 +3,7 @@ const path = require('path')
 const cloudHelper = require("../dbhelper/cloudHelper")
 const send = require('koa-send');
 const cloudFsHelper = require("../fshelper/cloudHelper")
+const queryToObject = require("query-to-object")
 
 
 /**
@@ -103,21 +104,20 @@ exports.removeUploadFileById2 = async (ctx, next) => {
 
 
 exports.getFilesList = async (ctx, next) => {
-  let result = {success: false, data: null}
-  let _id = ctx.query.id;
-  if(!_id){
-    _id = ctx.cookies.get("token").id;
-  }
-  if(!_id){
+  let result = { success: false, data: null }
+  let param = queryToObject(ctx.query)
+  if(!param.owner_id || param.owner_id.length === 0){
+    param.owner_id = [JSON.parse(ctx.cookies.get("token")).id];
+  } 
+  if(!param.owner_id || param.owner_id.length === 0){
     ctx.body = {
       success: false,
       msg: "参数缺失"
     }
     return
   }
-  
   try {
-    let res = await cloudHelper.getFilesList(_id)
+    let res = await cloudHelper.getFilesList(param)
     result.success = true;
     result.data = res;
   } catch (error) {
