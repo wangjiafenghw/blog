@@ -46,6 +46,11 @@ exports.download = async (ctx, next) => {
   await send(ctx, data.url);
 }
 
+exports.editorFile = async (ctx, next) => {
+  const params = queryToObject(ctx.query)
+  console.log(params)    //---------------
+}
+
 //删除已上传文件
 exports.removeUploadFile = async (ctx, next) => {
     let result = { success: false, code: 1 }
@@ -102,7 +107,7 @@ exports.removeUploadFileById2 = async (ctx, next) => {
 }
 
 
-
+//综合查询文件列表
 exports.getFilesList = async (ctx, next) => {
   let result = { success: false, data: null }
   let param = queryToObject(ctx.query)
@@ -119,7 +124,9 @@ exports.getFilesList = async (ctx, next) => {
   try {
     let res = await cloudHelper.getFilesList(param)
     result.success = true;
-    result.data = res;
+    result.results = res.results;
+    result.count = res.count;
+    result.pageCount = res.pageCount;
   } catch (error) {
     result.msg = "错误"
     throw error 

@@ -18,6 +18,7 @@ var CloudSchema = new Schema({
     permission: String,
     suffix: String,
     owner_id: String,
+    desc: String,
     meta: {
         createAt: {
             type: Date,

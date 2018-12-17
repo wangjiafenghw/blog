@@ -27,6 +27,7 @@ module.exports = function(){
   router.get('/cloud/download/:id', App.hasToken, Cloud.download)
   router.get('/cloud/removeUploadFileById/:id', App.hasToken, Cloud.removeUploadFileById1)
   router.get('/cloud/removeUploadFileById', App.hasToken, Cloud.removeUploadFileById2)
+  router.get('/cloud/editorFile', App.hasToken, Cloud.editorFile)
   
   router.post('/u/signup', App.hasBody, User.signup)
   router.post('/u/update', App.hasBody, App.hasToken, User.update)

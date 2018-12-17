@@ -4,6 +4,7 @@ var mongoose =  require('mongoose')
 var Cloud = mongoose.model('Cloud')
 const fs = require("fs-extra")
 const cloudFsHelper = require("../fshelper/cloudHelper")
+const dbHelper = require("./dbHelper")
 
 // 上传
 exports.upload = async (data) => {
@@ -49,23 +50,6 @@ exports.removeUploadFile = async (url) => {
 //通过用户查询云文件列表
 
 exports.getFilesList = async (param) => {
-    let ret = [];
-    let query = Cloud.find({})
-    if(param.permission && param.permission.length!==0){
-        query.where("permission").in(param.permission)
-    }
-    query.where("owner_id").in(param.owner_id)
-    await query   //////////////////////
-    query.skip((param.current-1)*param.pageSize)
-    query.limit(parseInt(param.pageSize));
-    console.log(param)
-    await query.exec((err, res) => {
-        if(err){
-            throw err;
-        }else{
-            ret = res;
-        }
-    })
-    
+    let ret = await dbHelper.pageQuery(param.current, parseInt(param.pageSize), Cloud, '', {})
     return ret;
 }
