@@ -112,6 +112,15 @@ const database = [{
         icon: 'bars',
         route: '/Cloud/List',
     },
+    {
+        id: '83',
+        breadcrumbParentId: '8',
+        menuParentId: '8',
+        name: 'View',
+        zhName: '视图',
+        icon: 'desktop',
+        route: '/Cloud/View',
+    },
     
 ]
 

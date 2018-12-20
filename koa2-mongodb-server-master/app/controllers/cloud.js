@@ -28,6 +28,8 @@ exports.upload = async (ctx, next) => {
     owner: "admin",
     owner_id: JSON.parse(ctx.cookies.get("token")).id,
     permission: "common",
+    permission_code: '0',
+    desc: "",
     suffix: result.suffixName
   }
   let res = await cloudHelper.upload(data)
@@ -46,9 +48,14 @@ exports.download = async (ctx, next) => {
   await send(ctx, data.url);
 }
 
+//编辑云文件信息
 exports.editorFile = async (ctx, next) => {
+  let result = { success: false }
   const params = queryToObject(ctx.query)
-  console.log(params)    //---------------
+  await cloudFsHelper.mvFileByPD(params.url, params.type)
+  let bool = await cloudHelper.editorFile(params)
+  result.success = bool ? true : false;
+  ctx.body = result
 }
 
 //删除已上传文件

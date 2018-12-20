@@ -16,6 +16,7 @@ var CloudSchema = new Schema({
     owner: String,
     fileName: String,
     permission: String,
+    permission_code: String,
     suffix: String,
     owner_id: String,
     desc: String,

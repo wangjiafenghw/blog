@@ -32,6 +32,25 @@ exports.findFileById = async (_id) => {
     return data
 }
 
+//编辑文件信息
+exports.editorFile = async (record) => {
+    let _id = record._id;
+    let permission_code = record.type || 0,
+        fileName = record.filename,
+        desc = record.desc || '';
+    if(!fileName){
+        throw 'No fileName'
+    }
+    let query = Cloud.where({ _id }).update({ permission_code, fileName, desc })
+    try {
+        await query.exec()
+        return true;
+    } catch (error) {
+        throw error
+    }
+    
+}
+
 
 //删除已上传文件   ！
 // * (url为数据库路径，也就是没有.eg: "/cloud/common/。。。。")
@@ -50,6 +69,11 @@ exports.removeUploadFile = async (url) => {
 //通过用户查询云文件列表
 
 exports.getFilesList = async (param) => {
-    let ret = await dbHelper.pageQuery(param.current, parseInt(param.pageSize), Cloud, '', {})
+    console.log(param)
+    let queryParams = {};
+    if(param.permission_code){
+        queryParams.permission_code = param.permission_code;
+    }
+    let ret = await dbHelper.pageQuery(param.current, parseInt(param.pageSize), Cloud, '', queryParams)
     return ret;
 }
