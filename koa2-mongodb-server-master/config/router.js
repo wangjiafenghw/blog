@@ -37,6 +37,7 @@ module.exports = function(){
 
   // routers
   router.get('/routes', Routes.routes)
+  router.get('/routes/initRouters', Routes.initRouters)
 
   return router
 }

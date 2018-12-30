@@ -1,9 +1,10 @@
+'use strict'
 const database = [{
         id: '1',
         icon: 'dashboard',
         name: 'Dashboard',
         zhName: '仪表盘',
-        route: '/dashboard',
+        route: '/dashboard'
     },
     {
         id: '2',
@@ -11,7 +12,7 @@ const database = [{
         name: 'Users',
         zhName: '用户管理',
         icon: 'user',
-        route: '/user',
+        route: '/user'
     },
     {
         id: '7',
@@ -19,7 +20,7 @@ const database = [{
         name: 'Posts',
         zhName: '文章管理',
         icon: 'shopping-cart',
-        route: '/post',
+        route: '/post'
     },
     {
         id: '21',
@@ -27,7 +28,7 @@ const database = [{
         breadcrumbParentId: '2',
         name: 'User Detail',
         zhName: '用户详情',
-        route: '/user/:id',
+        route: '/user/:id'
     },
     {
         id: '3',
@@ -35,14 +36,14 @@ const database = [{
         name: 'Request',
         zhName: 'Request',
         icon: 'api',
-        route: '/request',
+        route: '/request'
     },
     {
         id: '4',
         breadcrumbParentId: '1',
         name: 'UI Element',
         zhName: 'UI组件',
-        icon: 'camera-o',
+        icon: 'camera-o'
     },
     {
         id: '45',
@@ -51,14 +52,14 @@ const database = [{
         name: 'Editor',
         zhName: 'Editor',
         icon: 'edit',
-        route: '/UIElement/editor',
+        route: '/UIElement/editor'
     },
     {
         id: '5',
         breadcrumbParentId: '1',
         name: 'Charts',
         zhName: 'Charts',
-        icon: 'code-o',
+        icon: 'code-o'
     },
     {
         id: '51',
@@ -67,7 +68,7 @@ const database = [{
         name: 'ECharts',
         zhName: 'ECharts',
         icon: 'line-chart',
-        route: '/chart/ECharts',
+        route: '/chart/ECharts'
     },
     {
         id: '52',
@@ -76,7 +77,7 @@ const database = [{
         name: 'HighCharts',
         zhName: 'HighCharts',
         icon: 'bar-chart',
-        route: '/chart/highCharts',
+        route: '/chart/highCharts'
     },
     {
         id: '53',
@@ -85,14 +86,14 @@ const database = [{
         name: 'Rechartst',
         zhName: 'Rechartst',
         icon: 'area-chart',
-        route: '/chart/Recharts',
+        route: '/chart/Recharts'
     },
     {
         id: '8',
         breadcrumbParentId: '1',
         name: 'Cloud',
         zhName: '云盘',
-        icon: 'cloud',
+        icon: 'cloud'
     },
     {
         id: '81',
@@ -101,7 +102,7 @@ const database = [{
         name: 'Upload',
         zhName: '上传',
         icon: 'upload',
-        route: '/Cloud/Upload',
+        route: '/Cloud/Upload'
     },
     {
         id: '82',
@@ -110,7 +111,7 @@ const database = [{
         name: 'List',
         zhName: '列表',
         icon: 'bars',
-        route: '/Cloud/List',
+        route: '/Cloud/List'
     },
     {
         id: '83',
@@ -119,11 +120,20 @@ const database = [{
         name: 'View',
         zhName: '视图',
         icon: 'desktop',
-        route: '/Cloud/View',
-    },
+        route: '/Cloud/View'
+    }
     
 ]
 
+import { getRouters, initRouters } from "../dbhelper/routersHelper"
+
 exports.routes = async (ctx, next) => {
-    ctx.body = database
+    // ctx.body = database
+    let data = await getRouters();
+    ctx.body = data
+}
+
+exports.initRouters = async (ctx) => {
+    let data = await initRouters(database)
+    ctx.body = data
 }
