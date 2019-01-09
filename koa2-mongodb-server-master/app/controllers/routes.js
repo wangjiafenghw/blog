@@ -89,6 +89,22 @@ const database = [{
         route: '/chart/Recharts'
     },
     {
+        id: '6',
+        breadcrumbParentId: '1',
+        name: 'Articles',
+        zhName: '文章管理',
+        icon: 'book'
+    },
+    {
+        id: '61',
+        breadcrumbParentId: '6',
+        menuParentId: '6',
+        name: 'createArticle',
+        zhName: '创建文章',
+        icon: 'file-add',
+        route: '/Articles/createArticle'
+    },
+    {
         id: '8',
         breadcrumbParentId: '1',
         name: 'Cloud',
@@ -128,9 +144,9 @@ const database = [{
 import { getRouters, initRouters } from "../dbhelper/routersHelper"
 
 exports.routes = async (ctx, next) => {
-    // ctx.body = database
-    let data = await getRouters();
-    ctx.body = data
+    ctx.body = database
+    // let data = await getRouters();
+    // ctx.body = data
 }
 
 exports.initRouters = async (ctx) => {
