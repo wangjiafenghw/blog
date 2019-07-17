@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Html</span>
+                    </div>
+                    <textarea id="html_input" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Css</span>
+                    </div>
+                    <textarea id="css_input" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm list-box">
+                <ul class="list-group" id="input_group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm" id="show_box">
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="./himalaya.js"></script>
+    <script>
+        String.prototype.replaceAll = function(s1, s2) {
+            return this.replace(new RegExp(s1, "gm"), s2);
+        }
+        $(function(){
+            $("#html_input").on("change", function(){
+                var str = $(this).val().replace(/ *[\r|\n] */gm, '');   //去除es6模板字符串所存在的换行和空格
+                var json = window.himalaya.parse(str)
+                console.log(json)
+            })
+            $("#css_input").on("change", function(){
+                var css_str = $(this).val();
+                var css_obj_str = css_str.replaceAll("{", "={");
+                console.log(JSON.parse(css_obj_str))
+                
+            })
+        })
+    </script>
+</body>
+
+</html>
