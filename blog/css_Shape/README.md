@@ -33,15 +33,22 @@ shape-outside: content-box;
 shape-outside: border-box;
 shape-outside: padding-box;
 
-除了以上的值类型属性值外还有函数类型的属性值，函数类型的属性值较为常用。
-`circle()`就是定义了一个圆形的区域,在括号内可以传入参数，标准的定义是这样的：`<circle()> = circle([ <shape-radius> ]? [ at <position>]? )`,乍一看很难懂，实际这是一种十分严谨、清晰的表达方式，这里是通过弧形半径和位置两个方面设置，具体的效果如下图。
-![tu](./shape_circle_gif.gif)
-
 >/* 函数值 */
 shape-outside: circle();
 shape-outside: ellipse();
 shape-outside: inset(10px 10px 10px 10px);
 shape-outside: polygon(10px 10px, 20px 20px, 30px 30px);
+
+除了以上的值类型属性值外还有函数类型的属性值，函数类型的属性值较为常用。
+`circle()`就是定义了一个圆形的区域,在括号内可以传入参数，标准的定义是这样的：`<circle()> = circle([ <shape-radius> ]? [ at <position>]? )`,乍一看很难懂，实际这是一种十分严谨、清晰的表达方式，这里是通过弧形半径和位置两个方面设置，具体的效果如下图。
+![circle()不同参数演示](./shape_circle_gif.gif)
+
+ellipse()则是定义一个椭圆区域，参数配置的方法与circle()大体相同，但也有差别，比如椭圆需要设置长半径和短半径，这里就不演示了，给出标准定义：
+`<ellipse()> = ellipse( [<shape-radius>{2}]?[ at <position>]? )`，感兴趣的小伙伴自己试一试。
+
+polygen()定义多边形,原理比较简单
+`<polygon()> = polygon( <fill-rule>? , [<length-percentage><length-percentage>]# )`
+![polygon()演示](./polygon_gif.gif)
 
 
 >/* <url> 值 */
@@ -54,4 +61,14 @@ shape-outside: linear-gradient(45deg, rgba(255, 255, 255, 0) 150px, red 150px);
 shape-outside: initial;
 shape-outside: inherit;
 shape-outside: unset;
+
+> 并不美好的兼容性
+
+给大家泼个冷水，`shape-outside`的兼容性并不好，我们在caniuse上看一下：
+
+![ciu](./ciu_shape_outside.png)
+
+> 演示在最后
+这里我写了一个很有趣的demo，是利用shape-outside的ellipse()函数属性进行定义的。
+![hotdog](./hot_dog_gif.gif)
 
